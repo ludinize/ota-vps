@@ -44,11 +44,11 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// API 路由
-app.use('/api', firmwareRoutes);
-
 // 上传路由（带限制）
 app.use('/api/upload', uploadLimiter);
+
+// API 路由
+app.use('/api', firmwareRoutes);
 
 // 静态文件服务 - 前端构建文件
 const frontendBuildPath = path.join(__dirname, '../frontend/dist');
