@@ -1,0 +1,29 @@
+{
+  "name": "ota-firmware-manager",
+  "version": "1.0.0",
+  "description": "OTA 固件管理平台 - 支持固件上传、下载、管理",
+  "main": "backend/server.js",
+  "scripts": {
+    "install-all": "npm install && cd frontend && npm install",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build && cd .. && npm run build:backend",
+    "build:backend": "cd backend && npm install --production",
+    "start": "cd backend && npm start",
+    "deploy": "npm run build && pm2 restart ota-firmware || pm2 start ecosystem.config.js"
+  },
+  "keywords": [
+    "ota",
+    "firmware",
+    "upload",
+    "management",
+    "esp32",
+    "arduino"
+  ],
+  "author": "OTA Platform",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+} 

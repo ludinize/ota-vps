@@ -1,0 +1,41 @@
+[Unit]
+Description=OTA Firmware Management Platform
+Documentation=https://github.com/your-username/ota-firmware-manager
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/home/ubuntu/ota-firmware-manager
+ExecStart=/usr/bin/node backend/server.js
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=mixed
+KillSignal=SIGINT
+TimeoutStopSec=5
+Restart=always
+RestartSec=10
+
+# 环境变量
+Environment=NODE_ENV=production
+Environment=PORT=8000
+
+# 安全设置
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/home/ubuntu/ota-firmware-manager/backend/uploads
+ReadWritePaths=/home/ubuntu/ota-firmware-manager/logs
+
+# 资源限制
+LimitNOFILE=65536
+LimitNPROC=4096
+
+# 日志
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=ota-firmware
+
+[Install]
+WantedBy=multi-user.target 
